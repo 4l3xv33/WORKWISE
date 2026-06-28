@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WorkWise</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">WorkWise</p>
+        <h1>Get wise on work history.</h1>
+      </div>
+      <label class="upload-button">
+        <input id="resumeInput" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        Upload resume
+      </label>
+    </header>
+
+    <main class="app-shell">
+      <section class="workspace">
+        <div class="pane preview-pane">
+          <div class="pane-header">
+            <div>
+              <h2>Resume Preview</h2>
+              <p id="previewMeta">Upload a PDF or DOCX resume to begin.</p>
+            </div>
+            <button id="clearButton" class="ghost-button" type="button" disabled>Clear</button>
+          </div>
+          <div id="preview" class="preview empty-state">
+            <div>
+              <strong>No resume loaded</strong>
+              <span>Detected candidate matches will be highlighted here.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="pane findings-pane">
+          <div class="pane-header stacked">
+            <div>
+              <h2>Findings</h2>
+              <p id="findingsMeta">Entity database has not loaded yet.</p>
+            </div>
+            <div class="settings-row">
+              <label class="toggle">
+                <input id="fuzzyToggle" type="checkbox" checked>
+                <span>Fuzzy</span>
+              </label>
+              <label class="threshold-control">
+                <span>Threshold</span>
+                <input id="thresholdInput" type="range" min="70" max="95" value="82">
+                <output id="thresholdValue">82</output>
+              </label>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div><span id="entityCount">0</span><small>entities</small></div>
+            <div><span id="candidateCount">0</span><small>candidates</small></div>
+            <div><span id="findingCount">0</span><small>findings</small></div>
+          </div>
+
+          <div id="results" class="results empty-results">
+            <p>No findings yet.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="lower-band">
+        <div class="disclaimer">
+          WorkWise identifies candidate matches between resume text and a supplied entity database. Results may contain false positives or false negatives and should always be reviewed by a human. WorkWise does not make adjudicative decisions.
+        </div>
+        <div class="terminal">
+          <div class="terminal-title">Progress</div>
+          <pre id="terminalLog" aria-live="polite"></pre>
+        </div>
+      </section>
+    </main>
+
+    <script src="vendor/pdf.min.js"></script>
+    <script src="vendor/mammoth.browser.min.js"></script>
+    <script src="vendor/tesseract.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
